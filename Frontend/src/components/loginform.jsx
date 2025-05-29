@@ -1,6 +1,10 @@
 import React, { useState } from 'react'; // Importamos React y useState para manejar estados
 
-function LoginForm() {
+/**
+ * Formulario de inicio de sesión.
+ * Permite ingresar correo y contraseña, y navegar a otros formularios (registro, recuperación).
+ */
+function LoginForm({ onNavigate }) {
   // Estado para manejar la visibilidad de la contraseña
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,15 +52,37 @@ function LoginForm() {
       {/* Botón para enviar el formulario */}
       <button type="submit">Ingresar</button>
 
-      {/* Enlaces adicionales */}
+      {/* Enlaces adicionales para navegar a otros formularios */}
       <div style={{ marginTop: '10px' }}>
-        <a href="#">¿Olvidaste tu contraseña?</a><br />
-        <a href="#">¿No tienes cuenta? Regístrate</a>
+        {/* Navega al formulario de recuperación */}
+        <button
+          type="button"
+          onClick={() => onNavigate('recover')}
+          style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
+        <br />
+
+        {/* Navega al formulario de registro */}
+        <button
+          type="button"
+          onClick={() => onNavigate('register')}
+          style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+        >
+          ¿No tienes cuenta? Regístrate
+        </button>
       </div>
     </form>
   );
 }
 
 export default LoginForm;
-// Este componente LoginForm es un formulario de inicio de sesión simple que incluye:
-// - Campos para correo electrónico y contraseña.  
+
+/**
+ * Este componente LoginForm permite al usuario iniciar sesión.
+ * Incluye navegación hacia:
+ * - Formulario de recuperación de contraseña.
+ * - Formulario de registro de cuenta.
+ * Recibe `onNavigate` como prop desde App.jsx para cambiar de vista.
+ */

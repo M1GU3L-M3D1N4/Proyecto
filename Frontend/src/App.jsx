@@ -1,22 +1,32 @@
-import React from 'react';
-import LoginForm from './components/loginform'; // Importamos el componente LoginForm
+import React, { useState } from 'react';
+import LoginForm from './components/loginform';
+import RegisterForm from './components/registerform';
+import RecoverPasswordForm from './components/recoverpasswordform';
+import ResetPasswordForm from './components/resetpasswordform';
 
+// ...resto del código...
+/**
+ * Componente principal de la aplicación.
+ * Controla la vista actual: login, registro, recuperación o restablecimiento.
+ */
 function App() {
+  // Estado para controlar qué formulario se muestra
+  const [currentForm, setCurrentForm] = useState('login'); // opciones: login, register, recover, reset
+
+  // Función que cambia de formulario
+  const handleNavigate = (formName) => {
+    setCurrentForm(formName);
+  };
+
   return (
-    <div>
-      <h1>Pantalla de Inicio de Sesión</h1>
-      <LoginForm />
+    <div className="app">
+      {/* Mostrar el formulario según el estado actual */}
+      {currentForm === 'login' && <LoginForm onNavigate={handleNavigate} />}
+      {currentForm === 'register' && <RegisterForm onNavigate={handleNavigate} />}
+      {currentForm === 'recover' && <RecoverPasswordForm onNavigate={handleNavigate} />}
+      {currentForm === 'reset' && <ResetPasswordForm onNavigate={handleNavigate} />}
     </div>
   );
 }
 
 export default App;
-// Este es el componente principal de la aplicación que renderiza el formulario de inicio de sesión.
-// El componente LoginForm incluye campos para el correo electrónico y la contraseña, un botón para mostrar/ocultar la contraseña, un checkbox para recordar la sesión y enlaces para recuperar la contraseña o registrarse.
-// Además, el componente App incluye un título para la pantalla de inicio de sesión.
-// El formulario está diseñado para ser simple y funcional, permitiendo a los usuarios iniciar sesión de manera rápida y eficiente.
-// - Un botón para mostrar/ocultar la contraseña.
-// - Un checkbox para recordar la sesión.
-// - Enlaces para recuperar la contraseña o registrarse si no tienen cuenta.
-// - Un botón para enviar el formulario.
-// Este componente utiliza el estado local para manejar la visibilidad de la contraseña y proporciona una experiencia de usuario intuitiva y accesible.
